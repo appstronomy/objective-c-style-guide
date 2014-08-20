@@ -1,8 +1,10 @@
-# NYTimes Objective-C Style Guide
+# Appstronomy Objective-C Style Guide
 
-This style guide outlines the coding conventions of the iOS team at The New York Times. We welcome your feedback in [issues](https://github.com/NYTimes/objetive-c-style-guide/issues), [pull requests](https://github.com/NYTimes/objetive-c-style-guide/pulls) and [tweets](https://twitter.com/nytimesmobile). Also, [we're hiring](http://jobs.nytco.com/job/New-York-iOS-Developer-Job-NY/2572221/).
+This style guide outlines the coding conventions of the iOS team at Appstronomy. It has been forked from the original style guide published by The New York Times. 
 
-Thanks to all of [our contributors](https://github.com/NYTimes/objective-c-style-guide/contributors).
+See the original [New York Times Style Guide](https://github.com/NYTimes/objective-c-style-guide) if you're looking for the unchanged inspiration to this one.
+
+As we touch on some areas of style here that are not relevant to many organizations, including the New York Times, we are not planning to create pull requests to merge back into their original. As such, we have also removed the localized versions of this guide, as we do not have the resources to keep these at par, nor the need to do so, at present.
 
 ## Introduction
 
@@ -433,8 +435,9 @@ When possible, always turn on "Treat Warnings as Errors" in the target's Build S
 
 # Other Objective-C Style Guides
 
-If ours doesn't fit your tastes, have a look at some other style guides:
+While those hired on for projects at Appstronomy are strongly encouraged to follow our style guide where a concept is explicitly covered here, you may wish to look at other style guides for comparison, inspiration and suggestions:
 
+* [The New York Times](https://github.com/NYTimes/objective-c-style-guide)
 * [Google](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml)
 * [GitHub](https://github.com/github/objective-c-conventions)
 * [Adium](https://trac.adium.im/wiki/CodingStyle)
