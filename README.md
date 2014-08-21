@@ -54,9 +54,9 @@ view.backgroundColor = [UIColor orangeColor];
 UIApplication.sharedApplication.delegate;
 ```
 
-## Spacing
+## Spacing: Basics
 
-* Indent using 4 spaces. Never indent with tabs. Be sure to set this preference in Xcode.
+* Indent using 4 spaces. Never indent with tabs (unless you've mapped tab to produce 4 spaces in your IDE's preferences). Be sure to set this preference in Xcode.
 * Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
 
 **For example:**
@@ -68,8 +68,56 @@ else {
 //Do something else
 }
 ```
-* There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
-* `@synthesize` and `@dynamic` should each be declared on new lines in the implementation.
+
+* Leave 2 lines of vertical space between methods.
+* Whitespace within methods should separate functionality, but this often indicates that the method is better of divided up into smaller methods.
+* `@synthesize` and `@dynamic` should each be declared on new lines in the implementation, when called for.
+
+## Spacing: Pragma Marks
+
+* Leave 3 lines of vertical space above a `#pragma mark - Heading` 
+	* This assumes that there are methods above the heading. If there are not, then just leave 1 line of space above it.
+	* Leave 1 line of space after the heading and before a method.
+
+**For example:**
+```objc
+#pragma mark - Configuration
+
+- (void)applyDefaultConfiguration
+{
+    // Some method content here...
+}
+
+
+
+#pragma mark - Public Interface
+
+- (void)loadModel:(NSString *)modelName;
+{
+    // Some method content here...
+}
+
+
+- (void)loadModel:(NSString *)modelName logResults:(BOOL)logResults;
+{
+    // Some method content here...
+}
+```
+
+* Don't leave any vertical space between a `#pragma mark -` that produces a separator line (has the '-' in it) and a `#pragma mark` below it, which does not.
+
+**For example:**
+```objc
+#pragma mark - Find Using: Default Managed Object Context
+#pragma mark Multiple: This Class
+
++ (NSArray *)findAll;
+{
+    return [[self dataStore] findAllForEntityNamed:[self entityName]];
+}
+```
+
+
 
 ## Conditionals
 
@@ -152,7 +200,7 @@ Property definitions should be used in place of naked instance variables wheneve
 ```objc
 @interface NYTSection: NSObject
 
-@property (nonatomic) NSString *headline;
+@property (strong, nonatomic) NSString *headline;
 
 @end
 ```
@@ -167,7 +215,20 @@ Property definitions should be used in place of naked instance variables wheneve
 
 #### Variable Qualifiers
 
-When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifer (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) should be placed between the asterisks and the variable name, e.g., `NSString * __weak text`. 
+When it comes to the variable qualifiers [introduced with ARC](https://developer.apple.com/library/ios/releasenotes/objectivec/rn-transitioningtoarc/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226-CH1-SW4), the qualifer (`__strong`, `__weak`, `__unsafe_unretained`, `__autoreleasing`) should be placed before the type.
+
+**For example:**
+```objc
+__weak NSString *text;
+```
+
+When indicating block shared variables with the `__block` syntax, have that prefix everything else.
+
+**For example:**
+```objc
+__block __weak NSString *text;
+```
+
 
 ## Naming
 
@@ -187,12 +248,15 @@ UIButton *settingsButton;
 UIButton *setBut;
 ```
 
-A three letter prefix (e.g. `NYT`) should always be used for class names and constants, however may be omitted for Core Data entity names. Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
+A three or four letter prefix (e.g. `NYT`, `APPS`, etc.) should always be used for class names and constants, including for Core Data entity names. 
+
+### Constants
+Constants should be camel-case with all words capitalized and prefixed with a lowercase 'k' and the related class name for clarity. Separate the class name from the rest of the constant's name with an underscore. The part that follows the underscore should begin with a capital letter.
 
 **For example:**
 
 ```objc
-static const NSTimeInterval NYTArticleViewControllerNavigationFadeAnimationDuration = 0.3;
+static const NSTimeInterval kAPPSArticleViewController_NavigationFadeAnimationDuration = 0.3;
 ```
 
 **Not:**
@@ -201,9 +265,12 @@ static const NSTimeInterval NYTArticleViewControllerNavigationFadeAnimationDurat
 static const NSTimeInterval fadetime = 1.7;
 ```
 
-Properties and local variables should be camel-case with the leading word being lowercase.
+### Properties and local variables 
+These should be camel-case with the leading word being lowercase.
 
-Instance variables should be camel-case with the leading word being lowercase, and should be prefixed with an underscore. This is consistent with instance variables synthesized automatically by LLVM. **If LLVM can synthesize the variable automatically, then let it.**
+Instance variables should be camel-case with the leading word being lowercase, and should be prefixed with an underscore. This is consistent with instance variables synthesized automatically by LLVM. 
+
+_Don't manually synthesize a property if LLVM can synthesize the variable automatically. Unless you're doing something unusual, LLVM will in fact synthesize it for you._
 
 **For example:**
 
@@ -211,21 +278,32 @@ Instance variables should be camel-case with the leading word being lowercase, a
 @synthesize descriptiveVariableName = _descriptiveVariableName;
 ```
 
+or 
+
+```objc
+@property (strong, nonatomic) NSString *descriptiveVariableName;
+```
+
+
 **Not:**
 
 ```objc
-id varnm;
+id varnm; // truncated, not in camel-case and not descriptive
 ```
 
 ## Comments
 
 When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
 
-Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. This does not apply to those comments used to generate documentation.
+Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, inline, few-line explanations. This does not apply to those comments used to generate documentation.
+
+Use block comments in header files for documentation. If other classes don't need to invoke a method or access a property, then put those methods and properties in the implementation file. This includes `IBOutlet` properties wired to the Xib/Storyboard. If other classes don't need to access these, place them in the implementation file.
+
+If a method is present in a header file, provide a block comment there for documentation. If it is only present in an implementation file, then provide a block comment in the implementation file with documentation like rigor, if that will help a future maintainer of the class.
 
 ## init and dealloc
 
-`dealloc` methods should be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements. `init` should be placed directly below the `dealloc` methods of any class.
+`dealloc` methods, if needed with ARC (say, to de-register from notifications) should be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements. `init` should be placed directly below the `dealloc` methods of any class.
 
 `init` methods should be structured like this:
 
@@ -297,9 +375,9 @@ Constants are preferred over in-line string literals or numbers, as they allow f
 **For example:**
 
 ```objc
-static NSString * const NYTAboutViewControllerCompanyName = @"The New York Times Company";
+static NSString * const kNYTAboutViewController_CompanyName = @"The New York Times Company";
 
-static const CGFloat NYTImageThumbnailHeight = 50.0;
+static const CGFloat kNYTImageThumbnail_Height = 50.0;
 ```
 
 **Not:**
@@ -314,33 +392,35 @@ static const CGFloat NYTImageThumbnailHeight = 50.0;
 
 When using `enum`s, it is recommended to use the new fixed underlying type specification because it has stronger type checking and code completion. The SDK now includes a macro to facilitate and encourage use of fixed underlying types — `NS_ENUM()`
 
+Each option in the enumerated type should start with the type's name, followed by an underscore and then a word or phrase in initial caps.
+
 **Example:**
 
 ```objc
-typedef NS_ENUM(NSInteger, NYTAdRequestState) {
-    NYTAdRequestStateInactive,
-    NYTAdRequestStateLoading
+typedef NS_ENUM(NSInteger, APPSRequestState) {
+    APPSRequestState_Inactive,
+    APPSRequestState_Loading
 };
 ```
 
 ## Bitmasks
 
-When working with bitmasks, use the `NS_OPTIONS` macro.
+When working with bitmasks, use the `NS_OPTIONS` macro. The naming is similar to enums, where each of the unique elements has an underscore in the name to separate the bitmask type name and the particular option.
 
 **Example:**
 
 ```objc
-typedef NS_OPTIONS(NSUInteger, NYTAdCategory) {
-  NYTAdCategoryAutos      = 1 << 0,
-  NYTAdCategoryJobs       = 1 << 1,
-  NYTAdCategoryRealState  = 1 << 2,
-  NYTAdCategoryTechnology = 1 << 3
+typedef NS_OPTIONS(NSUInteger, APPSBodyPartCategory) {
+  APPSBodyPartCategory_Back      = 1 << 0,
+  APPSBodyPartCategory_Chest     = 1 << 1,
+  APPSBodyPartCategory_Legs  	 = 1 << 2,
+  APPSBodyPartCategory_Abs	 = 1 << 3
 };
 ```
 
 ## Private Properties
 
-Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class. Named categories (such as `NYTPrivate` or `private`) should never be used unless extending another class.
+Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class. Named categories (such as `APPSPrivate` or `private`) are discouraged, unless extending another class.
 
 **For example:**
 
@@ -356,14 +436,25 @@ Private properties should be declared in class extensions (anonymous categories)
 
 ## Image Naming
 
-Image names should be named consistently to preserve organization and developer sanity. They should be named as one camel case string with a description of their purpose, followed by the un-prefixed name of the class or property they are customizing (if there is one), followed by a further description of color and/or placement, and finally their state.
+Image names should be named consistently to preserve organization and developer sanity. 
+
+* They should be named using initial caps for adjacent words.
+* Name components should be separated by dashes when there exists an element to both the left and right of the dash. 
+* First, is an optional series abbreviation, such as `"b-"` or `"gadget-"`.
+* Second, is the component type in initial caps, e.g. `"Button"`, `"ViewBackground"`.
+* Third, is the class and or property name to which this image is associated, otherwise, a conceptual name. Always in initial caps.
+* Fourth, is the state of the component if applicable, e.g. `normal`, `selected`. This is always in lowercase.
+* Fifth, is an indication on whether this image is mean for stretching. If it is, it will have the suffix `bgs`, for *background stretchable*.
+
+[series abbreviation]-[component type]-[proper or conceptual name]-[state]-[bgs]
+
 
 **For example:**
 
-* `RefreshBarButtonItem` / `RefreshBarButtonItem@2x` and `RefreshBarButtonItemSelected` / `RefreshBarButtonItemSelected@2x`
-* `ArticleNavigationBarWhite` / `ArticleNavigationBarWhite@2x` and `ArticleNavigationBarBlackSelected` / `ArticleNavigationBarBlackSelected@2x`.
+* `Button-Info-normal` / `Button-Info-normal@2x` 
+* `a-ViewBackground-HorizontalRule-bgs` / `a-ViewBackground-HorizontalRule-bgs@2x`
 
-Images that are used for a similar purpose should be grouped in respective groups in an Images folder.
+Images that are used for a similar purpose should be grouped in the same Asset Catalog folder. The Appstronomy Designer on the team will generally handle image creation and naming.
 
 ## Booleans
 
