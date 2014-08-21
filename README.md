@@ -139,7 +139,7 @@ Leave **2 lines** of vertical space between methods. The internals of methods of
 }
 ```
 
-* Don't leave any vertical space between a `#pragma mark -` that produces a separator line (has the '-' in it) and a `#pragma mark` right below it, which does not.
+* Don't leave any vertical space between a `#pragma mark -` that produces a separator line (has the '-' in it) and any `#pragma mark` right below it, which does not.
 
 ###### For example:
 ```objc
@@ -306,14 +306,14 @@ _Don't manually synthesize a property if LLVM can synthesize the variable automa
 id varnm; // truncated, not in camel-case and not descriptive
 ```
 
-If other classes don't need to invoke a method or access a property, then put those methods and properties in the implementation file. This includes `IBOutlet` properties wired to the Xib/Storyboard. If other classes don't need to access these, place them in the implementation file.
+If other classes don't need to invoke a method or access a property, then put those methods and properties in the implementation file. This includes `IBOutlet` properties wired to the Xib/Storyboard. 
 
 
 ## Constants
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static` constants and not `#define`s unless explicitly being used as a macro or where it obviates the need to cast parameters throughout your code (to avoid type mismatch warnings). 
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static` constants and not `#define` statements *unless* explicitly being used as a macro *or* where it obviates the need to cast parameters throughout your code (to avoid type mismatch compiler warnings). 
 
-Constants should be camel-case with all words capitalized and prefixed with a lowercase 'k' and the related class name for clarity. Separate the class name from the rest of the constant's name with an underscore. The part that follows the underscore should begin with a capital letter.
+Constants should be camel-case with all words in initial caps and prefixed with a lowercase 'k', followed by the related class name for clarity. Separate the class name from the rest of the constant's name with an underscore. The part that follows the underscore should begin with a capital letter.
 
 ###### For example:
 
@@ -392,7 +392,7 @@ Use block comments in header files for documentation of the class itself as well
  Represents the single object from which other facilities in the app can be reached, 
  such as the data store class, or back-end services.
  
- A instance of this class is meant to be injected onto key base classes in the app,
+ An instance of this class is meant to be injected onto key base classes in the app,
  using static variables, so that they are effectively available to all subclasses.
  
  We are meant to be used as a singleton, hence the -sharedInstance method. 
@@ -434,7 +434,7 @@ Separate declared properties in an interface file from declared methods, with a 
 ```
 
 ##### Implementation Files
-If a method is only present in an implementation file, is important and non-trivial in contents, provide a block comment above the method with documentation like rigor (i.e. appledoc formatting). The goal here, is to help a future maintainer of the class. Class maintainers can benefit from good method documentation too, even when it's just looking at source code.
+If a non-trivial method is only present in an implementation file, provide a block comment above the method with appledoc like formatting. The goal here, is to help a future maintainer of the class. Class maintainers can benefit from good method documentation too; even when it's just looking at source code.
 
 ### For Explaining Internals
 When they are needed, internal code comments should use the single line syntax.
@@ -449,18 +449,18 @@ if ([relationSet count] > 0) {
 }
 ```
 
-Comments should be used to explain **intent** and motivation. Where helpful, comments can be used to help a developer follow the logical thought process by paraphrasing the approach taken. Such descriptions can provide guideposts to a developer trying to understand the code months or years later.
+Comments should be used to explain intent and motivation. Where helpful, comments can be used to help a developer follow the logical thought process by paraphrasing the approach taken. Such descriptions can provide guideposts to a developer trying to understand the code months or years later.
 
 Any comments that are used **must** be kept up-to-date or deleted. Left in, they'll create more confusion than they will any value.
 
-Block comments within a method body should generally be avoided (use the single line `//` syntax if you must). Code should be as self-documenting as possible, with only the need for short, intermittent, inline explanations. This does not apply to those comments used to generate documentation, as described [above](#as-documentation).
+Block comments within a method body should be avoided (use multiple lines of the single line `//` syntax if you must). Code should be as self-documenting as possible, with only the need for short, intermittent, inline explanations to clarify intent. This does not apply to those comments used to generate documentation, as described [above](#as-documentation).
 
 
 ## Pragma Headings
 
 We use the `#pragam mark` directive quite frequently to help more easily visualize sections of a source file, whether viewing the raw source or the structure of a file as given from a pulldown control in Xcode.
 
-If you place a dash ('-') after the `#pragam mark` directive, it will create a ruled line above when viewed in an Xcode structure list. Use that to separate top level sections. Use a `#pragma mark` without the dash to delineate sub-sections or provide headings to organize property types.
+If you place a dash ('-') after the `#pragam mark` directive, it will create a ruled line above when, for when viewed in an Xcode structure list. Use that to separate top level sections. Use a `#pragma mark` without the dash to delineate sub-sections or provide headings to organize property types.
 
 ###### For example:
 ```objc
@@ -473,11 +473,11 @@ If you place a dash ('-') after the `#pragam mark` directive, it will create a r
 }
 ```
 
-Typical top-level pragma mark headings you'll see and create in Appstronomy code. Where used, try to follow this general ordering:
+Typical top-level pragma mark headings you'll see and create in Appstronomy code follow. Where used, try to follow this general ordering:
 
 * **Instantiation:** Where singleton and public designated initializers go.
-* **Lifecycle:** Where dealloc, init and view controller lifecycle methods go (e.g. `viewDidLoad:`, `viewWillAppear:` etc.). Memory warning handlers can also go in this section (e.g. `didReceiveMemoryWarning`).
-* **&lt;superclass name&gt;:** When you override a method in a superclass that doesn't belong under a different heading, such as *Lifecycle*, create a heading for the name of that superclass, and implement the overidden methods there.
+* **Lifecycle:** Where dealloc, init and view controller lifecycle methods go (e.g. `viewDidLoad:`, `viewWillAppear:` etc.). Memory warning handlers also go in this section (e.g. `didReceiveMemoryWarning`).
+* **&lt;superclass name&gt;:** When you override a method in a superclass that doesn't belong under a different heading, such as *Lifecycle*, create a heading using the name of that superclass, and implement the overidden methods here.
 * **Property Overrides:** If you implement accessor or mutator methods for properties, they go under this heading.
 * **Configuration:** One time or recuring setup and configuration methods go here.
 * **User Actions:** Action methods, generally wired from Interface Builder.
@@ -486,7 +486,7 @@ Typical top-level pragma mark headings you'll see and create in Appstronomy code
 
 Of course, your class will have its own needs beyond the common ones called out above. Group similar methods by purpose and provide them a section heading with a pragma mark directive.
 
-You should also use simple `#pragam mark` headings to separate class properties by type. This becomes really valuable for classes with a large number of properties. 
+You should also use simple `#pragam mark` headings to separate a class' properties by type. This becomes really valuable for classes with a large number of properties. 
 
 ###### For example:
 ```objc
@@ -608,15 +608,15 @@ Private properties should be declared in class extensions (anonymous categories)
 
 ## Image Naming
 
-Image names should be named consistently to preserve organization and developer sanity. They should be named using initial caps for adjacent words. Components of the name should be separated by dashes when there exists an element to both the left and right of the dash. The components of the name are as follows:
+Images should be named consistently to preserve organization and developer sanity. For the most part, they should be named using initial caps for adjacent words. Components of the name should be separated by dashes when there exists an element to both the left and right of the component. The components of the name are as follows:
 
 `[series abbreviation]-[component type]-[proper or conceptual name]-[state]-[bgs]`
 
-* First, is an optional series abbreviation, such as `"b-"` or `"gadget-"`.
-* Second, is the component type or topic area in initial caps, e.g. `"Button"`, `"ViewBackground"`.
-* Third, is the class and or property name to which this image is associated, otherwise, a conceptual name. Always in initial caps.
-* Fourth, is the state of the component if applicable, e.g. `normal`, `selected`. This is always in lowercase.
-* Fifth, is an indication on whether this image is meant for stretching. If it is, it will have the suffix `bgs`, for *background stretchable*.
+* An optional series abbreviation, such as `"b-"` or `"gadget-"`.
+* The component type or topic area in initial caps, e.g. `"Button"`, `"ViewBackground"`.
+* The class and/or property name to which this image is associated, otherwise, a conceptual name. Always in initial caps.
+* The state of the component if applicable, e.g. `normal`, `selected`. This is always in lowercase.
+* An indication on whether this image is meant for stretching. If it is, it will have the suffix `bgs`, for *background stretchable*.
 
 
 
