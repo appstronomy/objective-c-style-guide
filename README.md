@@ -4,7 +4,7 @@ This style guide outlines the coding conventions of the iOS team at Appstronomy.
 
 See the original [New York Times Style Guide](https://github.com/NYTimes/objective-c-style-guide) if you're looking for the unchanged inspiration to this one.
 
-As we touch on some areas of style here that are not relevant to many organizations, including the New York Times, we are not planning to create pull requests to merge back into their original. As such, we have also removed the localized versions of this guide, as we do not have the resources to keep these at par, nor a present need to.
+As we touch on some areas of style here that are not relevant to many organizations, including the New York Times, we are not planning to create pull requests to merge back into their original. As such, we have also removed the localized versions of this guide, as we do not have the resources to keep these at par, nor a present need to do so.
 
 ## A Work in Progress
 
@@ -12,7 +12,7 @@ We are still bringing our existing and active codebases inline with this newly c
 
 ## Introduction
 
-Here are some of the documents from Apple that informed the style guide. If something isn't mentioned here, it's probably covered in great detail in one of these:
+Here are some of the documents from Apple that informed the original New York Times style guide. If something isn't mentioned here, it's probably covered in great detail in one of these:
 
 * [The Objective-C Programming Language](http://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ObjectiveC/Introduction/introObjectiveC.html)
 * [Cocoa Fundamentals Guide](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CocoaFundamentals/Introduction/Introduction.html)
@@ -24,6 +24,8 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Dot-Notation Syntax](#dot-notation-syntax)
 * [Braces](#braces)
 * [Spacing](#spacing)
+  * [Basics](#basics)
+  * [Pragma Marks](#pragma-marks)
 * [Conditionals](#conditionals)
   * [Ternary Operator](#ternary-operator)
 * [Error handling](#error-handling)
