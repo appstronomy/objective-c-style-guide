@@ -31,7 +31,7 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Variables](#variables)
 * [Naming](#naming)
 * [Comments](#comments)
-* [Pragma Marks](#pragma-marks)
+* [Pragma Headings](#pragma-headings)
 * [Constants](#constants)
 * [Init & Dealloc](#init-and-dealloc)
 * [Literals](#literals)
@@ -275,13 +275,13 @@ Long, descriptive method and variable names are good.
 UIButton *settingsButton;
 ```
 
-**Not**
+###### Not:
 
 ```objc
 UIButton *setBut;
 ```
 
-A three or four letter prefix (e.g. `NYT`, `APPS`, etc.) should always be used for class names and constants, including for Core Data entity names. 
+A three or four letter prefix (e.g. `NYT`, `APPS`, etc.) should always be used for class names and constants, including for Core Data entity names. Two letters are accepted, but discouraged for new code.
 
 
 ### Properties and local variables 
@@ -316,7 +316,7 @@ Constants should be camel-case with all words capitalized and prefixed with a lo
 ###### For example:
 
 ```objc
-static const NSTimeInterval kAPPSArticleViewController_NavigationFadeAnimationDuration = 0.3f;
+static const NSTimeInterval kAPPSArticleViewController_FadeAnimationDuration = 0.3f;
 ```
 
 ###### Not:
@@ -454,7 +454,7 @@ Any comments that are used **must** be kept up-to-date or deleted. Left in, they
 Block comments within a method body should generally be avoided (use the single line `//` syntax if you must). Code should be as self-documenting as possible, with only the need for short, intermittent, inline explanations. This does not apply to those comments used to generate documentation, as described [above](#as-documentation).
 
 
-## Pragma Marks
+## Pragma Headings
 
 We use the `#pragam mark` directive quite frequently to help more easily visualize sections of a source file, whether viewing the raw source or the structure of a file as given from a pulldown control in Xcode.
 
@@ -506,7 +506,7 @@ You should also use simple `#pragam mark` headings to separate class properties 
 
 ## init and dealloc
 
-`dealloc` methods, if needed with ARC (say, to de-register from notifications) should be placed at the top of the implementation, directly after the `@synthesize` and `@dynamic` statements. `init` should be placed directly below the `dealloc` methods of any class.
+`dealloc` methods, if needed with ARC (say, to de-register from notifications) should be placed near the top of the implementation file. `init` should be placed directly below the `dealloc` methods of any class. Of course, place these under the appropriate [#pragma heading](#pragma-headings).
 
 `init` methods should be structured like this:
 
