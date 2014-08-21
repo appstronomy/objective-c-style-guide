@@ -97,22 +97,20 @@ In both cases, closing braces go on a line of their own, unless dealing with a o
 ###### For example:
 ```objc
 if (user.isHappy) {
-//Do something
+    // Do something
 }
 else {
-//Do something else
+    // Do something else
 }
 ```
 
-* Leave **2 lines** of vertical space between methods.
-* Vertical whitespace within methods should separate functionality, but this often indicates that the method is better of divided up into smaller methods.
-* `@synthesize` and `@dynamic` should each be declared on new lines in the implementation, when called for.
+Leave **2 lines** of vertical space between methods. The internals of methods often have one line of vertical space to demarcate groups of statements. We want methods to be visually scannable and distinguishable from each other.
 
 ### Pragma Marks
 
-* Leave **3 lines** of vertical space above a `#pragma mark - Heading`. It will in fact help with quick visual parsing and look more pleasant in Xcode than it does in this markdown rendering.
-	* This assumes that there are methods above the heading. If there are not, then just leave 1 line of space above it.
-	* Leave 1 line of space after the pragma heading and the start of a method.
+* Leave **3 lines** of vertical space above a `#pragma mark - Heading`. It will help with quick visual parsing and appear more pleasant in Xcode than it does in this markdown rendering.
+	* If there are no methods above the heading, just leave 1 line of space above the pragma mark.
+	* Leave 1 line of space *after* the pragma mark heading and the start of a method.
 
 ###### For example:
 ```objc
@@ -473,10 +471,12 @@ If you place a dash ('-') after the `#pragam mark` directive, it will create a r
 }
 ```
 
-Typical top-level pragma mark headings you'll see and create in Appstronomy code:
+Typical top-level pragma mark headings you'll see and create in Appstronomy code. Where used, try to follow this general ordering:
 
-* **Lifecycle:** Where dealloc, init and view controller lifecycle methods (`-viewDidLoad:`, `-viewWillAppear:` etc.) go. Memory warning handlers can also go in this section (e.g. `-didReceiveMemoryWarning`).
-* **Property Overrides:** Accessor and mutator methods for properties go under this heading.
+* **Instantiation:** Where singleton and public designated initializers go.
+* **Lifecycle:** Where dealloc, init and view controller lifecycle methods go (e.g. `viewDidLoad:`, `viewWillAppear:` etc.). Memory warning handlers can also go in this section (e.g. `didReceiveMemoryWarning`).
+* **&lt;superclass name&gt;:** When you override a method in a superclass that doesn't belong under a different heading, such as *Lifecycle*, create a heading for the name of that superclass, and implement the overidden methods there.
+* **Property Overrides:** If you implement accessor or mutator methods for properties, they go under this heading.
 * **Configuration:** One time or recuring setup and configuration methods go here.
 * **User Actions:** Action methods, generally wired from Interface Builder.
 * **Protocol: &lt;protocol name&gt;:** Methods you implement for a given protocol should be colocated near the end of your implementation file, with the name of the protocol called out in the #pragma mark directive.
