@@ -4,7 +4,7 @@ This style guide outlines the coding conventions of the iOS team at Appstronomy.
 
 See the original [New York Times Style Guide](https://github.com/NYTimes/objective-c-style-guide) if you're looking for the unchanged inspiration to this one.
 
-As we touch on some areas of style here that are not relevant to many organizations, including the New York Times, we are not planning to create pull requests to merge back into their original. As such, we have also removed the localized versions of this guide, as we do not have the resources to keep these at par, nor the need to do so, at present.
+As we touch on some areas of style here that are not relevant to many organizations, including the New York Times, we are not planning to create pull requests to merge back into their original. As such, we have also removed the localized versions of this guide, as we do not have the resources to keep these at par, nor a present need to.
 
 ## Introduction
 
@@ -70,14 +70,14 @@ else {
 ```
 
 * Leave 2 lines of vertical space between methods.
-* Whitespace within methods should separate functionality, but this often indicates that the method is better of divided up into smaller methods.
+* Vertical whitespace within methods should separate functionality, but this often indicates that the method is better of divided up into smaller methods.
 * `@synthesize` and `@dynamic` should each be declared on new lines in the implementation, when called for.
 
 ## Spacing: Pragma Marks
 
-* Leave 3 lines of vertical space above a `#pragma mark - Heading` 
+* Leave 3 lines of vertical space above a `#pragma mark - Heading`. It will in fact help with quick visual parsing and look more pleasant in Xcode than it does in this markdown rendering.
 	* This assumes that there are methods above the heading. If there are not, then just leave 1 line of space above it.
-	* Leave 1 line of space after the heading and before a method.
+	* Leave 1 line of space after the pragma heading and the start of a method.
 
 **For example:**
 ```objc
@@ -104,7 +104,7 @@ else {
 }
 ```
 
-* Don't leave any vertical space between a `#pragma mark -` that produces a separator line (has the '-' in it) and a `#pragma mark` below it, which does not.
+* Don't leave any vertical space between a `#pragma mark -` that produces a separator line (has the '-' in it) and a `#pragma mark` right below it, which does not.
 
 **For example:**
 ```objc
