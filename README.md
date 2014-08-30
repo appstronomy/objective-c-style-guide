@@ -30,6 +30,7 @@ Here are some of the documents from Apple that informed the original New York Ti
   * [Ternary Operator](#ternary-operator)
 * [Error handling](#error-handling)
 * [Methods](#methods)
+  * [Target-Action](#target-action)
 * [Variables](#variables)
 * [Naming](#naming)
 * [Comments](#comments)
@@ -225,7 +226,7 @@ In method signatures, there should be a space after the scope (-/+ symbol). Ther
 
 ### Target-Action
 
-These sorts of methods generally go under the pragma section with name 'User Actions'. For such methods, always use the prefix 'handle'. Generally, the appropriate suffix to use will be 'Tapped'. If the control that was tapped or otherwise interacted with has an IBOutlet property, use the name of that property in method. 
+These sorts of methods generally go under the pragma section with name 'User Actions'. For such methods, always use the prefix 'handle'. Generally, the appropriate suffix to use will be 'Tapped'. If the control that was tapped or otherwise interacted with has an IBOutlet property, use the name of that property in the method. 
 
 Generally, IBOutlet properties will be named so that their type is included in the name, e.g. `myServiceButton`, `usernameTextField` etc.
 
