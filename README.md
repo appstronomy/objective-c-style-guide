@@ -222,6 +222,20 @@ In method signatures, there should be a space after the scope (-/+ symbol). Ther
 ```objc
 - (void)setExampleText:(NSString *)text image:(UIImage *)image;
 ```
+
+### Target-Action
+
+These sorts of methods generally go under the pragma section with name 'User Actions'. For such methods, always use the prefix 'handle'. Generally, the appropriate suffix to use will be 'Tapped'. If the control that was tapped or otherwise interacted with has an IBOutlet property, use the name of that property in method. 
+
+Generally, IBOutlet properties will be named so that their type is included in the name, e.g. `myServiceButton`, `usernameTextField` etc.
+
+**For Example**:
+```objc
+- (IBAction)handleMyServiceButtonTapped:(id)sender;
+- (IBAction)handlePlayground2ButtonTapped:(id)sender;
+```
+
+
 ## Variables
 
 Variables should be named as descriptively as possible. Single letter variable names should be avoided except in `for()` loops.
