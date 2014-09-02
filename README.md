@@ -334,45 +334,25 @@ Constants should be camel-case with all words in initial caps and prefixed with 
 
 ```objc
 static const NSTimeInterval kAPPSArticleViewController_FadeAnimationDuration = 0.3f;
+static NSString * const kAPPSSelectInfection_BodyContentTemplateName = @"InfectionInfoNote";
 ```
 
 ###### Not:
 
 ```objc
 static const NSTimeInterval fadetime = 1.7;
+const NSString * kAPPSSelectInfection_BodyContentTemplateName = @"blah blah"; 
+NSString const * kAPPSSelectInfection_CSSTemplateName = @"yada yada";
 ```
 
-* If the constant is not tied to a specific class, then create your own placeholder concept name to use as if it was a class name.
+Note how constants with pointers require very [specific ordering](http://stackoverflow.com/a/6830983/535054), so you avoid compiler warnings about discarding qualifiers. Attention to this ordering will allow you to replace `#define` statements that are not macros, where you thought you couldn't.
+
+If the constant is not tied to a specific class, then create your own placeholder concept name to use as if it was a class name.
 
 ###### For example:
 
 ```objc
 static const NSTimeInterval kAPPSAnimation_DefaultDelay = 0.0f;
-```
-
-
-Understandably, having to cast every use of a constant font object to `(UIFont *)` because a parameter in another method is not expecting a strong `const UIFont *`, clutters the code. So use a `#define` in these situtations.
-
-
-###### For example:
-
-```objc
-static const NSString *kNYTAboutViewController_CompanyName = @"The New York Times Company";
-
-static const CGFloat kNYTImageThumbnail_Height = 50.0;
-
-#define kRPFont_HeadingSmall [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0f]
-```
-
-###### Not:
-
-```objc
-#define CompanyName @"The New York Times Company"
-
-#define thumbnailHeight 2
-
-#define smallHeadingFont [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0f]
-
 ```
 
 ## Enumerated Types
