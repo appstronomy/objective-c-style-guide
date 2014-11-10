@@ -178,6 +178,8 @@ or
 if (!error) return success;
 ```
 
+In addition, do ensure that you have a vertical space between two consecutive if-statements (which by definition, are independent). This will aid with visual scanning, where distinct if-statements can be distinguished from else-statements associated with a particular if-statement.
+
 ### Ternary Operator
 
 The Ternary operator, ? , should only be used when it increases clarity or code neatness. A single condition is usually all that should be evaluated. Evaluating multiple conditions is usually more understandable as an if statement, or refactored into instance variables.
