@@ -402,7 +402,7 @@ Use block comments in header files for documentation of the class itself as well
 
 If a method is present in a header file, provide a block comment there for documentation. 
 
-Separate declared properties in an interface file from declared methods, with a `#pragmar mark -` statement, as a heading for the method(s) that follow.
+Separate declared properties in an interface file from declared methods, with a `#pragma mark -` statement, as a heading for the method(s) that follow.
 
 ###### For example:
 
