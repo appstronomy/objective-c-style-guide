@@ -473,13 +473,35 @@ If you place a dash ('-') after the `#pragam mark` directive, it will create a r
 Typical top-level pragma mark headings you'll see and create in Appstronomy code follow. Where used, try to follow this general ordering:
 
 * **Instantiation:** Where singleton and public designated initializers go.
+```objc
+#pragma mark - Instantiation
+```
 * **Lifecycle:** Where dealloc, init and view controller lifecycle methods go (e.g. `viewDidLoad:`, `viewWillAppear:` etc.). Memory warning handlers also go in this section (e.g. `didReceiveMemoryWarning`).
+```objc
+#pragma mark - Lifecycle
+```
 * **&lt;superclass name&gt;:** When you override a method in a superclass that doesn't belong under a different heading, such as *Lifecycle*, create a heading using the name of that superclass, and implement the overidden methods here.
 * **Property Overrides:** If you implement accessor or mutator methods for properties, they go under this heading.
+```objc
+#pragma mark - Property Overrides
+```
 * **Configuration:** One time or recuring setup and configuration methods go here.
+```objc
+#pragma mark - Configuration
+```
 * **User Actions:** Action methods, generally wired from Interface Builder.
+```objc
+#pragma mark - User Actions
+```
 * **Protocol: &lt;protocol name&gt;:** Methods you implement for a given protocol should be colocated near the end of your implementation file, with the name of the protocol called out in the #pragma mark directive.
+```objc
+#pragma mark - Protocol: UITableViewDelegate
+#pragma mark - Protocol: UITableViewDataSource
+```
 * **Notification: &lt;notification name&gt;:** Methods you implement for a notification type should be colocated near the end of your implementation file, with the name of the notification called out in the #pragma mark directive. It's a good idea to colocate your register, deregister and handler methods for the notification here.
+```objc
+#pragma mark - Notification: NSManagedObjectContextObjectsDidChangeNotification
+```
 
 Of course, your class will have its own needs beyond the common ones called out above. Group similar methods by purpose and provide them a section heading with a pragma mark directive.
 
